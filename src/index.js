@@ -40,7 +40,31 @@ const app = async () => {
     const bondTx = await sdk.tx.buildBond(wrapperTxProps, bondProps);
     const signedBondTx = await sdk.signing.sign(bondTx, SIGNING_KEY);
 
-    console.info({ signedRevealPkTx, signedBondTx });
+    // Reveal the public key on chain if it hasn't previously been used
+    const revealPkResponse = await sdk.rpc.broadcastTx(
+      signedRevealPkTx,
+      wrapperTxProps,
+    );
+    const bondTxResponse = await sdk.rpc.broadcastTx(
+      signedBondTx,
+      wrapperTxProps,
+    );
+
+    console.log(
+      `Result of broadcasting RevealPK Tx for ${wrapperTxProps.publicKey}`,
+      revealPkResponse,
+    );
+    console.log(
+      `Result of broadcasting Bond Tx ${bondTx.hash}`,
+      bondTxResponse,
+    );
+
+    const balance = await sdk.rpc.queryBalance(
+      "tnam1qz4sdx5jlh909j44uz46pf29ty0ztftfzc98s8dx",
+      [NATIVE_TOKEN],
+      CHAIN_ID,
+    );
+    console.log("Balance:", balance);
   } catch (e) {
     console.warn(e);
   }
