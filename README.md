@@ -18,6 +18,14 @@ Then, you can run the example as follows:
 node src/index.js
 ```
 
+## Deriving Keys
+
+There is an example which generates a mnemonic, and derives a transparent keypair using the SDK package:
+
+```bash
+node src/keygen.js
+```
+
 ## Broadcasting a Tx directly to an RPC endpoint
 
 There is also an example that can be run which will properly protobuf-encode your Tx to be broadcasted directly to an RPC endpoint:
