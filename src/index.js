@@ -20,8 +20,8 @@ const app = async () => {
     // Construct a Bond Tx
     const wrapperTxProps = {
       token: NATIVE_TOKEN,
-      feeAmount: BigNumber(5),
-      gasLimit: BigNumber(20_000),
+      feeAmount: BigNumber(0.1),
+      gasLimit: BigNumber(5_000),
       chainId: CHAIN_ID,
       // Update this to a valid public key
       publicKey:
@@ -37,6 +37,7 @@ const app = async () => {
 
     const revealPkTx = await sdk.tx.buildRevealPk(wrapperTxProps);
     const signedRevealPkTx = await sdk.signing.sign(revealPkTx, SIGNING_KEY);
+
     const bondTx = await sdk.tx.buildBond(wrapperTxProps, bondProps);
     const signedBondTx = await sdk.signing.sign(bondTx, SIGNING_KEY);
 

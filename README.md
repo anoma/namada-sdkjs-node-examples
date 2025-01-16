@@ -6,7 +6,7 @@ This is an example repo that demonstrates loading `@namada/sdk` into a simple No
 
 First, install dependencies:
 
-```
+```bash
 yarn
 ```
 
@@ -14,8 +14,16 @@ _Optionally_, you can update the constants in `src/config.js` to your liking. Th
 
 Then, you can run the example as follows:
 
-```
+```bash
 node src/index.js
+```
+
+## Broadcasting a Tx directly to an RPC endpoint
+
+There is also an example that can be run which will properly protobuf-encode your Tx to be broadcasted directly to an RPC endpoint:
+
+```bash
+node src/protobuf.js
 ```
 
 ## TODO
