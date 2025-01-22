@@ -7,13 +7,18 @@ const { getSdk } = require("@namada/sdk/node");
 const { default: init } = require("@namada/sdk/node-init");
 
 // Constants
-const { NATIVE_TOKEN, NODE_URL, STORAGE_PATH } = require("./config");
+const { NATIVE_TOKEN, NODE_URL, STORAGE_PATH, MASP_URL } = require("./config");
 
 const app = async () => {
   try {
     const { cryptoMemory } = init();
-    // TODO: When @namada/sdk v0.15.0 is released, add MASP_URL to the following:
-    const sdk = getSdk(cryptoMemory, NODE_URL, STORAGE_PATH, NATIVE_TOKEN);
+    const sdk = getSdk(
+      cryptoMemory,
+      NODE_URL,
+      MASP_URL,
+      STORAGE_PATH,
+      NATIVE_TOKEN,
+    );
 
     const { mnemonic, keys } = sdk;
 

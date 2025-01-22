@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "@namada/sdk": "^0.14.0",
+    "@namada/sdk": "^0.15.0",
     "bignumber.js": "^9.1.2",
     "module-alias": "^2.2.3",
     "protobufjs": "^7.4.0"

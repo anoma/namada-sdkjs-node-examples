@@ -94,10 +94,10 @@
   resolved "https://registry.yarnpkg.com/@ledgerhq/logs/-/logs-6.12.0.tgz#ad903528bf3687a44da435d7b2479d724d374f5d"
   integrity sha512-ExDoj1QV5eC6TEbMdLUMMk9cfvNKhhv5gXol4SmULRVCx/3iyCPhJ74nsb3S0Vb+/f+XujBEj3vQn5+cwS0fNA==
 
-"@namada/sdk@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@namada/sdk/-/sdk-0.14.0.tgz#be8c52c26c5caa37b5188c5f9f45c4bda2a84c57"
-  integrity sha512-t5yPlq0rpTjjgS8eqrOHGFCDKKRrMmiYui92OvLwdz2Gqhb5zfPX9NKJw+NXMrTyv480dBEjvaE2r04/pbRZPg==
+"@namada/sdk@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@namada/sdk/-/sdk-0.15.0.tgz#a9feef3cece442188a9762d936dba910cf0bfbd4"
+  integrity sha512-nx/AOGpMAOOvzg3D1uKmZ7+vKf9s7H3nUofDdzwVI4mE8Pu3rnpKTpZhiLDlwvX5ihFS8xLhdrEQ6XnbYpYXtw==
   dependencies:
     "@cosmjs/encoding" "^0.29.0"
     "@dao-xyz/borsh" "^5.1.5"
