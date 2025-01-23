@@ -5,7 +5,7 @@ const CHAIN_ID = "campfire-square.ff09671d333707";
 const NODE_URL = "https://rpc.campfire.tududes.com";
 const MASP_URL = "https://masp.campfire.tududes.com";
 const NATIVE_TOKEN = "tnam1qy440ynh9fwrx8aewjvvmu38zxqgukgc259fzp6h";
-const STORAGE_PATH = ".";
+const STORAGE_PATH = "./data";
 
 const VALIDATOR = "tnam1qx5f39v5wynm5z0yc7xzuf9w535w9gn2qgkewyd5";
 

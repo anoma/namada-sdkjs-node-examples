@@ -1,9 +1,10 @@
-const BigNumber = require("bignumber.js");
-const path = require("path");
-
 // This is required with the published @namada/sdk.
 // This bug is being fixed in https://github.com/anoma/namada-interface/issues/1403
 require("module-alias/register");
+
+const dbManager = require("node-indexeddb/dbManager");
+const BigNumber = require("bignumber.js");
+const path = require("path");
 
 // SDK Imports
 const { getSdk } = require("@namada/sdk/node");
@@ -18,19 +19,31 @@ const {
   MASP_URL,
   GAS_CONFIG,
   PAYMENT_ADDRESS,
+  STORAGE_PATH,
 } = require("./config");
 
+const shieldedContextDir = path.resolve("./data");
+console.log({ shieldedContextDir });
+
+async function loadDB() {
+  // Some asynchronous operation
+  console.log({ dbManager });
+  await dbManager.loadCache().catch(console.error);
+  // Dynamically import the module
+  require("node-indexeddb/auto");
+}
+
 const app = async () => {
+  await loadDB();
   try {
     const { cryptoMemory } = init();
     const sdk = getSdk(
       cryptoMemory,
       NODE_URL,
       MASP_URL,
-      path.resolve("./data"),
+      path.resolve(STORAGE_PATH),
       NATIVE_TOKEN,
     );
-    console.log({ sdk });
     const { feeAmount, gasLimit } = GAS_CONFIG;
 
     // Construct a Bond Tx
@@ -53,14 +66,17 @@ const app = async () => {
       ],
     };
 
-    // Load MASP Params
-    const maspParamLocation = "./data"; // TODO: Store masp params
-    console.log("Fetching MASP params...");
-    // TODO: Load masp params locally instead
-    await sdk.masp.fetchAndStoreMaspParams();
-    console.log("Loading MASP params...");
-    await sdk.masp.loadMaspParams(maspParamLocation, CHAIN_ID);
+    if (!(await sdk.masp.hasMaspParams())) {
+      console.log("MASP params not found!");
+      console.log("Fetching MASP params...");
+      // TODO: This is throwing an exception:
+      await sdk.masp.fetchAndStoreMaspParams().catch((e) => console.warn(e));
+    }
 
+    console.log("Loading MASP params...");
+    await sdk.masp.loadMaspParams(path.resolve(STORAGE_PATH), CHAIN_ID);
+
+    console.log("Building shielding transfer...");
     const shieldingTransfer = await sdk.tx.buildShieldingTransfer(
       wrapperTxProps,
       shieldingTransferProps,

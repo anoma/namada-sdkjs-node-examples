@@ -10,7 +10,9 @@
     "@namada/sdk": "^0.15.0",
     "bignumber.js": "^9.1.2",
     "module-alias": "^2.2.3",
-    "protobufjs": "^7.4.0"
+    "node-indexeddb": "^6.0.0",
+    "protobufjs": "^7.4.0",
+    "real-indexeddb": "^0.0.2"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",

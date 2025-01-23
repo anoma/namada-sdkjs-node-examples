@@ -63,16 +63,16 @@ const app = async () => {
     };
 
     const revealPkTx = await sdk.tx.buildRevealPk(wrapperTxProps);
-    // If paying fees with a different account, also provide signing key for that keypair
     const signedRevealPkTx = await sdk.signing.sign(revealPkTx, [
       KEYS_1.private,
+      // If paying fees with a different account, also provide signing key for that keypair
       KEYS_2.private,
     ]);
 
     const bondTx = await sdk.tx.buildBond(wrapperTxProps, bondProps);
-    // If paying fees with a different account, also provide signing key for that keypair
     const signedBondTx = await sdk.signing.sign(bondTx, [
       KEYS_1.private,
+      // If paying fees with a different account, also provide signing key for that keypair
       KEYS_2.private,
     ]);
 

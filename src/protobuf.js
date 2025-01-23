@@ -31,13 +31,13 @@ const app = async () => {
     console.log({ sdk });
 
     const { feeAmount, gasLimit } = GAS_CONFIG;
+
     // Construct a Bond Tx
     const wrapperTxProps = {
       token: NATIVE_TOKEN,
       chainId: CHAIN_ID,
       feeAmount,
       gasLimit,
-      // Update this to a valid public key
       publicKey: KEYS_1.public,
     };
 
