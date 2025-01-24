@@ -22,12 +22,10 @@ const {
   STORAGE_PATH,
 } = require("./config");
 
-const shieldedContextDir = path.resolve("./data");
-console.log({ shieldedContextDir });
+const shieldedDataDir = path.resolve(STORAGE_PATH);
 
 async function loadDB() {
   // Some asynchronous operation
-  console.log({ dbManager });
   await dbManager.loadCache().catch(console.error);
   // Dynamically import the module
   require("node-indexeddb/auto");
@@ -41,12 +39,11 @@ const app = async () => {
       cryptoMemory,
       NODE_URL,
       MASP_URL,
-      path.resolve(STORAGE_PATH),
+      shieldedDataDir,
       NATIVE_TOKEN,
     );
     const { feeAmount, gasLimit } = GAS_CONFIG;
 
-    // Construct a Bond Tx
     const wrapperTxProps = {
       token: NATIVE_TOKEN,
       feeAmount,
@@ -66,15 +63,20 @@ const app = async () => {
       ],
     };
 
+    // TODO: Why is this returning "false" even when the params are present? See exception note below:
     if (!(await sdk.masp.hasMaspParams())) {
       console.log("MASP params not found!");
       console.log("Fetching MASP params...");
-      // TODO: This is throwing an exception:
+      // TODO: Why is this throwing an exception? This catch ignores the exception:
       await sdk.masp.fetchAndStoreMaspParams().catch((e) => console.warn(e));
     }
 
     console.log("Loading MASP params...");
-    await sdk.masp.loadMaspParams(path.resolve(STORAGE_PATH), CHAIN_ID);
+    await sdk.masp.loadMaspParams(shieldedDataDir, CHAIN_ID);
+
+    // console.log("Shielded Sync...");
+    // TODO: Provide any viewing keys as first argument to sync balances:
+    // await sdk.rpc.shieldedSync([], CHAIN_ID);
 
     console.log("Building shielding transfer...");
     const shieldingTransfer = await sdk.tx.buildShieldingTransfer(
