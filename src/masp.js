@@ -25,9 +25,7 @@ const {
 const shieldedDataDir = path.resolve(STORAGE_PATH);
 
 async function loadDB() {
-  // Some asynchronous operation
   await dbManager.loadCache().catch(console.error);
-  // Dynamically import the module
   require("node-indexeddb/auto");
 }
 
@@ -69,15 +67,18 @@ const app = async () => {
       console.log("Fetching MASP params...");
       // TODO: Why is this throwing an exception? This catch ignores the exception:
       await sdk.masp.fetchAndStoreMaspParams().catch((e) => console.warn(e));
+      // As such, it seems the database isn't fully updating here, even when the complete
+      // params have been downloaded.
     }
 
     console.log("Loading MASP params...");
     await sdk.masp.loadMaspParams(shieldedDataDir, CHAIN_ID);
 
     // console.log("Shielded Sync...");
-    // TODO: Provide any viewing keys as first argument to sync balances:
+    // TODO: Provide any viewing keys as first argument to sync shielded notes:
     // await sdk.rpc.shieldedSync([], CHAIN_ID);
 
+    // TODO: Why is this failing to find `shielded.dat`?
     console.log("Building shielding transfer...");
     const shieldingTransfer = await sdk.tx.buildShieldingTransfer(
       wrapperTxProps,
